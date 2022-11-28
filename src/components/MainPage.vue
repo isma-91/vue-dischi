@@ -3,12 +3,13 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 
 };
 </script>
 
-<style lang="scss">
-@import '~bootstrap/scss/bootstrap';
+<style lang="scss" scoped>
 
 </style>
