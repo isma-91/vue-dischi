@@ -24,4 +24,8 @@ export default {
   height: 100vh;
 }
 
+ul {
+  list-style-type: none;
+}
+
 </style>

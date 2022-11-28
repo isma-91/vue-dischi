@@ -1,6 +1,6 @@
 <template>
   <div class="body d-flex">
-    <ul v-if="arrDiscs" class="row row-cols-5 container m-auto">
+    <ul v-if="arrDiscs" class="row row-cols-5 container m-auto g-4">
       <DiscCard
         v-for="disc in arrDiscs"
         :key="disc.poster"
@@ -10,6 +10,9 @@
         :year= "disc.year"
       />
     </ul>
+    <div class="loading d-flex m-auto" v-else>
+      <div>Loading ...</div>
+    </div>
   </div>
 </template>
 
@@ -29,12 +32,14 @@ export default {
     };
   },
   created() {
-    axios.get(this.urlApi)
-      .then((axiosResult) => {
+    setTimeout(() => {
+      axios.get(this.urlApi)
+        .then((axiosResult) => {
         // console.log(axiosResult);
-        this.arrDiscs = axiosResult.data.response;
-        console.log(axiosResult.data.response);
-      });
+          this.arrDiscs = axiosResult.data.response;
+          console.log(axiosResult.data.response);
+        });
+    }, 2000);
   },
 };
 </script>
@@ -43,5 +48,11 @@ export default {
 .body {
   background-color: #1E2D3B;
   height: 95vh;
+}
+
+.loading {
+  font-size: 50px;
+  color: white;
+  font-weight: bold;
 }
 </style>
