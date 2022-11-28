@@ -1,11 +1,20 @@
 <template>
-  <div class="body">
-    <DiscCard />
+  <div class="body d-flex">
+    <ul v-if="arrDiscs" class="row row-cols-5 container m-auto">
+      <DiscCard
+        v-for="disc in arrDiscs"
+        :key="disc.poster"
+        :imgUrl= "disc.poster"
+        :songName= "disc.title"
+        :artist= "disc.author"
+        :year= "disc.year"
+      />
+    </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios'; // Quando `nello script senza un percorso prima, parte dalla node modules
+import axios from 'axios'; // Quando nello script senza un percorso prima, parte dalla node modules
 import DiscCard from '@/components/DiscCard.vue';
 
 export default {
@@ -20,7 +29,12 @@ export default {
     };
   },
   created() {
-    axios.get();
+    axios.get(this.urlApi)
+      .then((axiosResult) => {
+        // console.log(axiosResult);
+        this.arrDiscs = axiosResult.data.response;
+        console.log(axiosResult.data.response);
+      });
   },
 };
 </script>
