@@ -1,7 +1,7 @@
 <template>
 <div class="app">
-<HeaderPage />
-<MainPage />
+<HeaderPage @change="change"/>
+<MainPage :change-result="filterDiscs"/>
 </div>
 </template>
 
@@ -13,6 +13,17 @@ export default {
   components: {
     HeaderPage,
     MainPage,
+  },
+  data() {
+    return {
+      filterDiscs: 'Qualsiasi',
+    };
+  },
+  methods: {
+    change(info) {
+      this.filterDiscs = info;
+      // console.log(this.filterDiscs);
+    },
   },
 };
 </script>

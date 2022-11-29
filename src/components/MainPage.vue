@@ -1,6 +1,7 @@
 <template>
   <div class="body d-flex">
-    <ul v-if="arrDiscs" class="row row-cols-5 container m-auto g-4">
+    <ul v-if="(arrDiscs && changeResult === 'Qualsiasi')"
+    class="row row-cols-5 container m-auto g-4">
       <DiscCard
         v-for="disc in arrDiscs"
         :key="disc.poster"
@@ -10,6 +11,18 @@
         :year= "disc.year"
       />
     </ul>
+
+    <ul v-else-if="arrDiscs" class="row row-cols-5 container m-auto g-4">
+      <DiscCard
+        v-for="disc in filteredDiscs"
+        :key="disc.poster"
+        :imgUrl= "disc.poster"
+        :songName= "disc.title"
+        :artist= "disc.author"
+        :year= "disc.year"
+      />
+    </ul>
+
     <div class="loading d-flex m-auto" v-else>
       <div>Loading ...</div>
     </div>
@@ -22,6 +35,9 @@ import DiscCard from '@/components/DiscCard.vue';
 
 export default {
   name: 'MainPage',
+  props: {
+    changeResult: String,
+  },
   components: {
     DiscCard,
   },
@@ -39,7 +55,12 @@ export default {
           this.arrDiscs = axiosResult.data.response;
           console.log(axiosResult.data.response);
         });
-    }, 2000);
+    }, 1000);
+  },
+  computed: {
+    filteredDiscs() {
+      return this.arrDiscs.filter((objDisc) => objDisc.genre === this.changeResult);
+    },
   },
 };
 </script>
